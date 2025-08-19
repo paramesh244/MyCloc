@@ -1,13 +1,17 @@
 {
   "expo": {
-    "name": "RuseHome",
-    "slug": "y",
+    "name": "MyCloc",
+    "slug": "MyCloc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -16,36 +20,16 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.rusehome.RuseHome"
+      "edgeToEdgeEnabled": true,
+      "package": "com.paramesh.MyCloc"
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true
-    },
     "extra": {
-      "router": {
-        "origin": false
-      },
       "eas": {
-        "projectId": "d0cbd6a4-d396-46c7-b2de-a5e8e61660c2"
+        "projectId": "a4be1739-2911-458e-8321-817d4b51e6be"
       }
-    },
-    "owner": "vvinutha220"
+    }
   }
 }
