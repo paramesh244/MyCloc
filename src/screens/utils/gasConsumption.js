@@ -49,46 +49,93 @@ const GasConsumption = () => {
     fetchMonthlyDaysData();
   }, []);
 
+  // const fetchConsumptionData = async () => {
+  //   try {
+  //     const r = await utilityService.getGasData();
+
+  //     console.log("Gas Consumption Data:", r);
+      
+  //     setConsumptionData(r || []);
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError("Failed to fetch gas consumption data.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const fetchMonthlyDaysData = async () => {
+  //   try {
+  //     const response = await utilityService.getGasMonthlyData();
+  //     console.log("-->>", response);
+
+     
+    
+  //     const data = response || [];
+
+  //     const labels = [];
+  //     const values = [];
+
+  //     data.forEach((item) => {
+  //       const value = Number(item.days_consumed);
+  //       if (!isNaN(value) && isFinite(value)) {
+  //         labels.push(item.month);
+  //         values.push(value);
+  //       }
+  //     });
+
+  //     setGraphData({ labels, datasets: [{ data: values }] });
+  //   } catch (err) {
+  //     console.error(err);
+  //     setError("Failed to fetch monthly consumption graph.");
+  //   }
+  // };
+
   const fetchConsumptionData = async () => {
-    try {
-      const r = await utilityService.getGasData();
+  try {
+    const r = await utilityService.getGasData();
+    console.log("Gas Consumption Data:", r);
 
-      console.log("Gas Consumption Data:", r);
-      
-      setConsumptionData(r || []);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch gas consumption data.");
-    } finally {
-      setLoading(false);
+    // Ensure it's always an array
+    if (Array.isArray(r)) {
+      setConsumptionData(r);
+    } else {
+      setConsumptionData([]); // fallback if API returns error object
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setError("Failed to fetch gas consumption data.");
+    setConsumptionData([]); // prevent crash
+  } finally {
+    setLoading(false);
+  }
+};
 
-  const fetchMonthlyDaysData = async () => {
-    try {
-      const response = await utilityService.getGasMonthlyData();
-      console.log("-->>", response);
-      console.log("-->>", response);
-      
-      const data = response || [];
+const fetchMonthlyDaysData = async () => {
+  try {
+    const response = await utilityService.getGasMonthlyData();
+    console.log("-->>", response);
 
-      const labels = [];
-      const values = [];
+    const data = Array.isArray(response) ? response : [];
 
-      data.forEach((item) => {
-        const value = Number(item.days_consumed);
-        if (!isNaN(value) && isFinite(value)) {
-          labels.push(item.month);
-          values.push(value);
-        }
-      });
+    const labels = [];
+    const values = [];
 
-      setGraphData({ labels, datasets: [{ data: values }] });
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch monthly consumption graph.");
-    }
-  };
+    data.forEach((item) => {
+      const value = Number(item.days_consumed);
+      if (!isNaN(value) && isFinite(value)) {
+        labels.push(item.month);
+        values.push(value);
+      }
+    });
+
+    setGraphData({ labels, datasets: [{ data: values }] });
+  } catch (err) {
+    console.error(err);
+    setError("Failed to fetch monthly consumption graph.");
+  }
+};
+
 
   const toggleModal = () => setModalVisible(!isModalVisible);
 
